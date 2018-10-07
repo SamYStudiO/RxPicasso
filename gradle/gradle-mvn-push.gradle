@@ -111,4 +111,10 @@ afterEvaluate { project ->
         archives androidSourcesJar
         archives androidJavadocsJar
     }
+
+    allprojects {
+        tasks.withType(Javadoc).all {
+            enabled = false
+        }
+    }
 }
