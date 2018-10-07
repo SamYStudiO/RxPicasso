@@ -5,6 +5,7 @@ buildscript {
                 minSdk     : 14,
 
                 kotlin     : '1.2.71',
+                annotation : '1.0.0',
                 rxjava     : '2.2.2',
                 picasso    : '3.0.0-SNAPSHOT',
 

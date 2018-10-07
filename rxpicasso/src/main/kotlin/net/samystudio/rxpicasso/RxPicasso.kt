@@ -5,9 +5,9 @@ package net.samystudio.rxpicasso
 import android.app.Notification
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.support.annotation.IdRes
 import android.widget.ImageView
 import android.widget.RemoteViews
+import androidx.annotation.IdRes
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.RequestCreator
