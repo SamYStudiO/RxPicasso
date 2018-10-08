@@ -15,7 +15,7 @@ implementation 'net.samystudio.rxpicasso:rxpicasso-kotlin:0.1.0'
 
 Snapshots are available from [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/).
 If you want to run latest snapshot add its repository from your root `build.gradle`:
-```
+```groovy
 allprojects {
     repositories {
         google()
@@ -152,7 +152,7 @@ RxPicasso.INSTANCE
         } );
 ```
 **Kotlin:**
-```java
+```kotlin
 // load image into an imageView
 val disposable = picasso
     .load(imagePath)
