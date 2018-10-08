@@ -90,7 +90,7 @@ RxPicasso.INSTANCE
                 }
 
                 if( targetState instanceof TargetState.BitmapLoaded ) {
-                    // do something with targetState.bitmap or state.from
+                    // do something with targetState.bitmap or targetState.from
                 }
             }
 
