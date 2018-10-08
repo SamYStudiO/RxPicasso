@@ -1,6 +1,6 @@
 RxPicasso
 =========
-Reactive [Picasso](https://github.com/square/picasso) callbacks.
+[Reactive](https://github.com/ReactiveX/RxJava) [Picasso](https://github.com/square/picasso) callbacks.
 
 Download
 --------
