@@ -36,8 +36,6 @@ class RxPicassoTest {
             callback.onSuccess()
         }.subscribe { success = true }
 
-        val error = Exception("error")
-
         Completable.create { emitter ->
             val callback = RxPicasso.CompletableCallBack(emitter)
             callback.onError(error)
