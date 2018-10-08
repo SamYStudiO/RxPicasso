@@ -1,6 +1,6 @@
 RxPicasso
 =========
-Reactive Picasso callbacks.
+Reactive [Picasso](https://github.com/square/picasso) callbacks.
 
 Download
 --------
