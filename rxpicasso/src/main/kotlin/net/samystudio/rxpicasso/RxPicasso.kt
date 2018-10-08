@@ -15,10 +15,10 @@ import com.squareup.picasso.Target
 import io.reactivex.*
 
 object RxPicasso {
-
     /**
      * [com.squareup.picasso.RequestCreator.into] (ImageView, CallBack)
      */
+    @JvmStatic
     fun requestInto(requestCreator: RequestCreator, imageView: ImageView): Completable =
         Completable.create { emitter ->
             requestCreator.into(
@@ -30,6 +30,7 @@ object RxPicasso {
     /**
      * [com.squareup.picasso.RequestCreator.into] (RemoteViews, int, int, Notification, String, Callback)
      */
+    @JvmStatic
     fun requestInto(
         requestCreator: RequestCreator,
         remoteViews: RemoteViews,
@@ -51,6 +52,7 @@ object RxPicasso {
     /**
      * [com.squareup.picasso.RequestCreator.into] (RemoteViews, int, IntArray)
      */
+    @JvmStatic
     fun requestInto(
         requestCreator: RequestCreator,
         remoteViews: RemoteViews, @IdRes viewId: Int,
@@ -67,18 +69,21 @@ object RxPicasso {
     /**
      * [com.squareup.picasso.RequestCreator.into] (Target)
      */
+    @JvmStatic
     fun requestIntoBitmap(requestCreator: RequestCreator): Single<Bitmap> =
         Single.create { emitter -> requestCreator.into(SingleTarget(emitter)) }
 
     /**
      * [com.squareup.picasso.RequestCreator.into] (Target)
      */
+    @JvmStatic
     fun requestIntoTarget(requestCreator: RequestCreator): Observable<TargetState> =
         Observable.create { emitter -> requestCreator.into(ObservableTarget(emitter)) }
 
     /**
      * [com.squareup.picasso.RequestCreator.fetch] (Callback)
      */
+    @JvmStatic
     fun requestFetch(requestCreator: RequestCreator): Completable =
         Completable.create { emitter -> requestCreator.fetch(CompletableCallBack(emitter)) }
 
