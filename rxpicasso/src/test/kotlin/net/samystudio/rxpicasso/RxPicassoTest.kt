@@ -36,6 +36,8 @@ class RxPicassoTest {
             callback.onSuccess()
         }.subscribe { success = true }
 
+        assertTrue(success)
+
         Completable.create { emitter ->
             val callback = RxPicasso.CompletableCallBack(emitter)
             callback.onError(error)
@@ -58,6 +60,8 @@ class RxPicassoTest {
             assertEquals(this.bitmap, b)
             success = true
         }
+
+        assertTrue(success)
 
         Single.create<Bitmap> { emitter ->
             val callback = RxPicasso.SingleTarget(emitter)
