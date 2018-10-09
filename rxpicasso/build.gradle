@@ -26,7 +26,6 @@ dependencies {
     api "com.squareup.picasso:picasso:$versions.picasso"
     testImplementation "junit:junit:$versions.junit"
     testImplementation "org.mockito:mockito-core:$versions.mockito"
-    testImplementation "org.robolectric:robolectric:$versions.robolectric"
 }
 
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

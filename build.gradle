@@ -10,8 +10,7 @@ buildscript {
                 picasso    : '3.0.0-SNAPSHOT',
 
                 junit      : '4.12',
-                mockito    : '2.22.0',
-                robolectric: '4.0-beta-1'
+                mockito    : '2.22.0'
         ]
     }
     repositories {

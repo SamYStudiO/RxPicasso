@@ -8,16 +8,10 @@ import io.reactivex.Single
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 
-@RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
 class RxPicassoTest {
-
     @Mock
     lateinit var bitmap: Bitmap
     private val error = Exception("error")
