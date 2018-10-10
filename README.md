@@ -154,7 +154,7 @@ RxPicasso.INSTANCE
 **Kotlin:**
 ```kotlin
 // load image into an imageView
-val disposable = picasso
+picasso
     .load(imagePath)
     .observeInto(imageView)
     .subscribe({
@@ -164,7 +164,7 @@ val disposable = picasso
     })
 
 // load image into a bitmap
-val disposable = picasso
+picasso
     .load(imagePath)
     .observeIntoBitmap()
     .subscribe({ bitmap ->
@@ -174,7 +174,7 @@ val disposable = picasso
     })
 
 // load image into a Picasso Target
-val disposable = picasso
+picasso
     .load(imagePath)
     .observeIntoTarget()
     .subscribe({ state: TargetState ->
@@ -190,7 +190,7 @@ val disposable = picasso
     })
 
 // fetch image into cache
-val disposable = picasso
+picasso
     .load(imagePath)
     .observeFetch()
     .subscribe({
@@ -200,7 +200,7 @@ val disposable = picasso
     })
 
 // load image into remote view (notification)
-val disposable = picasso
+picasso
     .load(imagePath)
     .observeInto(remoteViews, viewId, notficationId, notification, notificationTag)
     .subscribe({
@@ -210,7 +210,7 @@ val disposable = picasso
     })
 
 // load image into remote view (notification)
-val disposable = picasso
+picasso
     .load(imagePath)
     .observeInto(remoteViews, viewId, appWidgetIds)
     .subscribe({
