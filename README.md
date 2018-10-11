@@ -6,11 +6,11 @@ Download
 --------
 **Java**
 ```groovy
-implementation 'net.samystudio.rxpicasso:rxpicasso:0.1.0'
+implementation 'net.samystudio.rxpicasso:rxpicasso:0.2.0'
 ```
 **Kotlin**
 ```groovy
-implementation 'net.samystudio.rxpicasso:rxpicasso-kotlin:0.1.0'
+implementation 'net.samystudio.rxpicasso:rxpicasso-kotlin:0.2.0'
 ```
 
 Snapshots are available from [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/).
@@ -29,11 +29,11 @@ and change library version:
 
 **Java**
 ```groovy
-implementation 'net.samystudio.rxpicasso:rxpicasso:0.2.0-SNAPSHOT'
+implementation 'net.samystudio.rxpicasso:rxpicasso:0.3.0-SNAPSHOT'
 ```
 **Kotlin**
 ```groovy
-implementation 'net.samystudio.rxpicasso:rxpicasso-kotlin:0.2.0-SNAPSHOT'
+implementation 'net.samystudio.rxpicasso:rxpicasso-kotlin:0.3.0-SNAPSHOT'
 ```
 
 Usage
@@ -41,122 +41,139 @@ Usage
 **Java:**
 ```java
 // load image into an imageView
-RxPicasso.INSTANCE
-        .requestInto( picasso.load( path ), imageView )
-        .subscribe( new Action( ) {
+RxPicasso
+        .observeInto(picasso, picasso.load(path), imageView)
+        .subscribe(new Action() {
             @Override
-            public void run( ) throws Exception {
+            public void run() {
                 // image loaded
             }
-        }, new Consumer< Throwable >( ) {
+        }, new Consumer<Throwable>() {
             @Override
-            public void accept( Throwable throwable ) throws Exception {
+            public void accept(Throwable throwable) {
                 throwable.printStackTrace();
             }
-        } );
+        });
+
+// load image into remote view (notification)
+RxPicasso
+        .observeInto(picasso, picasso.load(path), remoteViews, viewId, notficationId, notification, notificationTag)
+        .subscribe(new Action() {
+            @Override
+            public void run() throws Exception {
+                // image loaded
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
+
+
+// load image into remote view (notification)
+RxPicasso
+        .observeInto(picasso, picasso.load(path), remoteViews, viewId, appWidgetIds)
+        .subscribe(new Action() {
+            @Override
+            public void run() throws Exception {
+                // image loaded
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
 
 // load image into a bitmap
-RxPicasso.INSTANCE
-        .requestIntoBitmap( picasso.load( path ) )
-        .subscribe( new Consumer< Bitmap >( ) {
+RxPicasso
+        .observeIntoBitmap(picasso, picasso.load(path))
+        .subscribe(new Consumer<Bitmap>() {
             @Override
-            public void accept( Bitmap bitmap ) throws Exception {
+            public void accept(Bitmap bitmap) {
                 // bitmap loaded
             }
-        }, new Consumer< Throwable >( ) {
+        }, new Consumer<Throwable>() {
             @Override
-            public void accept( Throwable throwable ) throws Exception {
+            public void accept(Throwable throwable) {
                 throwable.printStackTrace();
             }
-        } );
+        });
 
 // load image into a Picasso Target
-RxPicasso.INSTANCE
-        .requestIntoTarget( picasso.load( path ) )
-        .subscribe( new Observer< TargetState >( ) {
+RxPicasso
+        .observeIntoTarget(picasso, picasso.load(path))
+        .subscribe(new Observer<TargetState>() {
             @Override
-            public void onSubscribe( Disposable d ) {
+            public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext( TargetState targetState ) {
-                if( targetState instanceof TargetState.PrepareLoad ) {
+            public void onNext(TargetState targetState) {
+                if (targetState instanceof TargetState.PrepareLoad) {
                     // do something with targetState.placeHolderDrawable
                 }
 
-                if( targetState instanceof TargetState.BitmapFailed ) {
+                if (targetState instanceof TargetState.BitmapFailed) {
                     // do something with targetState.errorDrawable
                 }
 
-                if( targetState instanceof TargetState.BitmapLoaded ) {
+                if (targetState instanceof TargetState.BitmapLoaded) {
                     // do something with targetState.bitmap or targetState.from
                 }
             }
 
             @Override
-            public void onError( Throwable e ) {
+            public void onError(Throwable e) {
                 e.printStackTrace();
             }
 
             @Override
-            public void onComplete( ) {
+            public void onComplete() {
                 // completed
             }
-        } );
+        });
 
 // fetch image into cache
-RxPicasso.INSTANCE
-        .requestFetch( picasso.load( path ) )
-        .subscribe( new Action( ) {
+RxPicasso
+        .observeFetch(picasso, picasso.load(path))
+        .subscribe(new Action() {
             @Override
-            public void run( ) throws Exception {
+            public void run() {
                 // image loaded into cache
             }
-        }, new Consumer< Throwable >( ) {
+        }, new Consumer<Throwable>() {
             @Override
-            public void accept( Throwable throwable ) throws Exception {
+            public void accept(Throwable throwable) {
                 throwable.printStackTrace();
             }
-        } );
-
-// load image into remote view (notification)
-RxPicasso.INSTANCE
-        .requestInto( picasso.load( path ), remoteViews, viewId, notficationId, notification, notificationTag )
-        .subscribe( new Action( ) {
-            @Override
-            public void run( ) throws Exception {
-                // image loaded
-            }
-        }, new Consumer< Throwable >( ) {
-            @Override
-            public void accept( Throwable throwable ) throws Exception {
-                throwable.printStackTrace();
-            }
-        } );
-
-
-// load image into remote view (notification)
-RxPicasso.INSTANCE
-        .requestInto( picasso.load( path ), remoteViews, viewId, appWidgetIds )
-        .subscribe( new Action( ) {
-            @Override
-            public void run( ) throws Exception {
-                // image loaded
-            }
-        }, new Consumer< Throwable >( ) {
-            @Override
-            public void accept( Throwable throwable ) throws Exception {
-                throwable.printStackTrace();
-            }
-        } );
+        });
 ```
 **Kotlin:**
 ```kotlin
 // load image into an imageView
 picasso
-    .load(imagePath)
-    .observeInto(imageView)
+    .observeInto(picasso.load(path), imageView)
+    .subscribe({
+        // image loaded
+    }, {
+        it.printStackTrace()
+    })
+
+// load image into remote view (notification)
+picasso
+    .observeInto(picasso.load(path), remoteViews, viewId, notficationId, notification, notificationTag)
+    .subscribe({
+        // image loaded
+    }, {
+        it.printStackTrace()
+    })
+
+// load image into remote view (notification)
+picasso
+    .observeInto(picasso.load(path), remoteViews, viewId, appWidgetIds)
     .subscribe({
         // image loaded
     }, {
@@ -165,8 +182,7 @@ picasso
 
 // load image into a bitmap
 picasso
-    .load(imagePath)
-    .observeIntoBitmap()
+    .observeIntoBitmap(picasso.load(path))
     .subscribe({ bitmap ->
         // bitmap loaded
     }, {
@@ -175,13 +191,18 @@ picasso
 
 // load image into a Picasso Target
 picasso
-    .load(imagePath)
-    .observeIntoTarget()
+    .observeIntoTarget(picasso.load(path))
     .subscribe({ state: TargetState ->
         when (state) {
-            is TargetState.PrepareLoad -> // do something with state.placeHolderDrawable
-            is TargetState.BitmapFailed -> // do something with state.errorDrawable
-            is TargetState.BitmapLoaded -> // do something with state.bitmap or state.from
+            is TargetState.PrepareLoad -> {
+                // do something with state.placeHolderDrawable
+            }
+            is TargetState.BitmapFailed -> {
+                // do something with state.errorDrawable
+            }
+            is TargetState.BitmapLoaded -> {
+                // do something with state.bitmap or state.from
+            }
         }
     }, {
         it.printStackTrace()
@@ -191,30 +212,9 @@ picasso
 
 // fetch image into cache
 picasso
-    .load(imagePath)
-    .observeFetch()
+    .observeFetch(picasso.load(path))
     .subscribe({
         // image loaded into cache
-    }, {
-        it.printStackTrace()
-    })
-
-// load image into remote view (notification)
-picasso
-    .load(imagePath)
-    .observeInto(remoteViews, viewId, notficationId, notification, notificationTag)
-    .subscribe({
-        // image loaded
-    }, {
-        it.printStackTrace()
-    })
-
-// load image into remote view (notification)
-picasso
-    .load(imagePath)
-    .observeInto(remoteViews, viewId, appWidgetIds)
-    .subscribe({
-        // image loaded
     }, {
         it.printStackTrace()
     })
