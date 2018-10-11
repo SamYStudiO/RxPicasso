@@ -1,1 +1,1 @@
-include ':rxpicasso', ':rxpicasso-kotlin'
+include ':rxpicasso', ':rxpicasso-kotlin', ':rxpicasso-sample', ':rxpicasso-kotlin-sample'

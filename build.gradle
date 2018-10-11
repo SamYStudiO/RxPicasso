@@ -1,16 +1,17 @@
 buildscript {
     ext {
         versions = [
-                compileSdk : 28,
-                minSdk     : 14,
+                compileSdk: 28,
+                targetSdk : 28,
+                minSdk    : 14,
 
-                kotlin     : '1.2.71',
-                annotation : '1.0.0',
-                rxjava     : '2.2.2',
-                picasso    : '3.0.0-SNAPSHOT',
+                kotlin    : '1.2.71',
+                annotation: '1.0.0',
+                rxjava    : '2.2.2',
+                picasso   : '3.0.0-SNAPSHOT',
 
-                junit      : '4.12',
-                mockito    : '2.22.0'
+                junit     : '4.12',
+                mockito   : '2.22.0'
         ]
     }
     repositories {
