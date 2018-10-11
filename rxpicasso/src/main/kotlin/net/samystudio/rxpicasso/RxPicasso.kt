@@ -16,11 +16,16 @@ import io.reactivex.*
 
 object RxPicasso {
     /**
-     * [com.squareup.picasso.RequestCreator.into] (ImageView, CallBack)
+     * [com.squareup.picasso.RequestCreator.into] (ImageView)
      */
     @JvmStatic
-    fun observeRequestInto(requestCreator: RequestCreator, imageView: ImageView): Completable =
+    fun observeInto(
+        picasso: Picasso,
+        requestCreator: RequestCreator,
+        imageView: ImageView
+    ): Completable =
         Completable.create { emitter ->
+            emitter.setCancellable { picasso.cancelRequest(imageView) }
             requestCreator.into(
                 imageView,
                 CompletableCallBack(emitter)
@@ -28,10 +33,11 @@ object RxPicasso {
         }
 
     /**
-     * [com.squareup.picasso.RequestCreator.into] (RemoteViews, int, int, Notification, String, Callback)
+     * [com.squareup.picasso.RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
      */
     @JvmStatic
-    fun observeRequestInto(
+    fun observeInto(
+        picasso: Picasso,
         requestCreator: RequestCreator,
         remoteViews: RemoteViews,
         @IdRes viewId: Int,
@@ -39,6 +45,7 @@ object RxPicasso {
         notification: Notification,
         notificationTag: String
     ): Completable = Completable.create { emitter ->
+        emitter.setCancellable { picasso.cancelRequest(remoteViews, viewId) }
         requestCreator.into(
             remoteViews,
             viewId,
@@ -50,14 +57,16 @@ object RxPicasso {
     }
 
     /**
-     * [com.squareup.picasso.RequestCreator.into] (RemoteViews, int, IntArray)
+     * [com.squareup.picasso.RequestCreator.into] (RemoteViews, Int, IntArray)
      */
     @JvmStatic
-    fun observeRequestInto(
+    fun observeInto(
+        picasso: Picasso,
         requestCreator: RequestCreator,
         remoteViews: RemoteViews, @IdRes viewId: Int,
         appWidgetIds: IntArray
     ): Completable = Completable.create { emitter ->
+        emitter.setCancellable { picasso.cancelRequest(remoteViews, viewId) }
         requestCreator.into(
             remoteViews,
             viewId,
@@ -70,22 +79,46 @@ object RxPicasso {
      * [com.squareup.picasso.RequestCreator.into] (Target)
      */
     @JvmStatic
-    fun observeRequestIntoBitmap(requestCreator: RequestCreator): Single<Bitmap> =
-        Single.create { emitter -> requestCreator.into(SingleTarget(emitter)) }
+    fun observeIntoBitmap(picasso: Picasso, requestCreator: RequestCreator): Single<Bitmap> =
+        Single.create { emitter ->
+            val target = SingleTarget(emitter)
+            emitter.setCancellable { picasso.cancelRequest(target) }
+            requestCreator.into(target)
+        }
 
     /**
      * [com.squareup.picasso.RequestCreator.into] (Target)
      */
     @JvmStatic
-    fun observeRequestIntoTarget(requestCreator: RequestCreator): Observable<TargetState> =
-        Observable.create { emitter -> requestCreator.into(ObservableTarget(emitter)) }
+    fun observeIntoTarget(
+        picasso: Picasso,
+        requestCreator: RequestCreator
+    ): Observable<TargetState> =
+        Observable.create { emitter ->
+            val target = ObservableTarget(emitter)
+            emitter.setCancellable { picasso.cancelRequest(target) }
+            requestCreator.into(target)
+        }
 
     /**
-     * [com.squareup.picasso.RequestCreator.fetch] (Callback)
+     * [tag] is only required if you want to cancel fetch when stream is disposed. It will override
+     * any previously tag set from [com.squareup.picasso.RequestCreator.tag]
+     * !!! For now cancellation doesn't work https://github.com/square/picasso/issues/1205 !!!
+     * [com.squareup.picasso.RequestCreator.fetch]
      */
     @JvmStatic
-    fun observeRequestFetch(requestCreator: RequestCreator): Completable =
-        Completable.create { emitter -> requestCreator.fetch(CompletableCallBack(emitter)) }
+    fun observeFetch(
+        picasso: Picasso,
+        requestCreator: RequestCreator,
+        tag: Any? = null
+    ): Completable =
+        Completable.create { emitter ->
+            tag?.let {
+                requestCreator.tag(it)
+                emitter.setCancellable { picasso.cancelTag(it) }
+            }
+            requestCreator.fetch(CompletableCallBack(emitter))
+        }
 
     internal class CompletableCallBack(private val emitter: CompletableEmitter) : Callback {
         override fun onSuccess() {
