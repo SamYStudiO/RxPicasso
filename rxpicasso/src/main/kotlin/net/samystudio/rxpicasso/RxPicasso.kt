@@ -107,6 +107,7 @@ object RxPicasso {
      * [com.squareup.picasso.RequestCreator.fetch]
      */
     @JvmStatic
+    @JvmOverloads
     fun observeFetch(
         picasso: Picasso,
         requestCreator: RequestCreator,
