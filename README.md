@@ -70,7 +70,6 @@ RxPicasso
             }
         });
 
-
 // load image into remote view (notification)
 RxPicasso
         .observeInto(picasso, picasso.load(path), remoteViews, viewId, appWidgetIds)
