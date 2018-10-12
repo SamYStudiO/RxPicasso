@@ -2,7 +2,7 @@
 ------------------
 - Improved Java usability.
 - Better methods naming consistency.
-- Request are now cancelled when stream is disposed.
+- Requests are now cancelled when stream is disposed.
 
 
 0.1.0 (2018-10-08)
