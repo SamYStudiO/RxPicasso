@@ -6,7 +6,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import com.squareup.picasso.Picasso
+import com.squareup.picasso3.Picasso
 import net.samystudio.rxpicasso.*
 
 class MainActivityKotlin : AppCompatActivity() {
@@ -58,17 +58,17 @@ class MainActivityKotlin : AppCompatActivity() {
 
         // load image into a Picasso Target
         picasso
-            .observeIntoTarget(picasso.load(path))
-            .subscribe({ state: TargetState ->
-                when (state) {
-                    is TargetState.PrepareLoad -> {
-                        // do something with state.placeHolderDrawable
+            .observeIntoBitmapTarget(picasso.load(path))
+            .subscribe({ bitmapTargetState ->
+                when (bitmapTargetState) {
+                    is BitmapTargetState.PrepareLoad -> {
+                        // do something with bitmapTargetState.placeHolderDrawable
                     }
-                    is TargetState.BitmapFailed -> {
-                        // do something with state.errorDrawable
+                    is BitmapTargetState.BitmapFailed -> {
+                        // do something with bitmapTargetState.errorDrawable
                     }
-                    is TargetState.BitmapLoaded -> {
-                        // do something with state.bitmap or state.from
+                    is BitmapTargetState.BitmapLoaded -> {
+                        // do something with bitmapTargetState.bitmap or bitmapTargetState.from
                     }
                 }
             }, {

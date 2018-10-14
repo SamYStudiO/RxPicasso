@@ -1,11 +1,12 @@
 package net.samystudio.rxpicasso
 
 import android.graphics.Bitmap
-import com.squareup.picasso.Picasso
+import android.graphics.drawable.Drawable
+import com.squareup.picasso3.Picasso
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import org.junit.Assert.*
+import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -14,6 +15,10 @@ import org.mockito.MockitoAnnotations
 class RxPicassoTest {
     @Mock
     lateinit var bitmap: Bitmap
+    @Mock
+    lateinit var drawablePlaceHolder: Drawable
+    @Mock
+    lateinit var drawableError: Drawable
     private val error = Exception("error")
 
     @Before
@@ -23,77 +28,61 @@ class RxPicassoTest {
 
     @Test
     fun completableCallBack() {
-        var success = false
-
+        var observer = TestObserver<Unit>()
         Completable.create { emitter ->
             val callback = RxPicasso.CompletableCallBack(emitter)
             callback.onSuccess()
-        }.subscribe { success = true }
+        }.subscribe(observer)
+        observer.assertComplete()
 
-        assertTrue(success)
-
+        observer = TestObserver()
         Completable.create { emitter ->
             val callback = RxPicasso.CompletableCallBack(emitter)
             callback.onError(error)
-        }.subscribe({ success = true }, {
-            assertEquals(it, error)
-            success = false
-        })
-
-        assertFalse(success)
+        }.subscribe(observer)
+        observer.assertError(error)
+        observer.assertNotComplete()
     }
 
     @Test
-    fun singleTarget() {
-        var success = false
-
+    fun singleBitmapTarget() {
+        var observer = TestObserver<Bitmap>()
         Single.create<Bitmap> { emitter ->
             val callback = RxPicasso.SingleTarget(emitter)
             callback.onBitmapLoaded(bitmap, Picasso.LoadedFrom.MEMORY)
-        }.subscribe { b ->
-            assertEquals(this.bitmap, b)
-            success = true
-        }
+        }.subscribe(observer)
+        observer.assertValue(bitmap)
+        observer.assertComplete()
 
-        assertTrue(success)
-
+        observer = TestObserver()
         Single.create<Bitmap> { emitter ->
             val callback = RxPicasso.SingleTarget(emitter)
             callback.onBitmapFailed(error, null)
-        }.subscribe({ success = true }, {
-            assertEquals(it, error)
-            success = false
-        })
-
-        assertFalse(success)
+        }.subscribe(observer)
+        observer.assertError(error)
+        observer.assertNotComplete()
     }
 
     @Test
-    fun observableTarget() {
-        var completed = false
-        var count = 0
-
-        Observable.create<TargetState> { emitter ->
+    fun observableBitmapTarget() {
+        var observer = TestObserver<BitmapTargetState>()
+        Observable.create<BitmapTargetState> { emitter ->
             val callback = RxPicasso.ObservableTarget(emitter)
-            callback.onPrepareLoad(null)
-            count++
+            callback.onPrepareLoad(drawablePlaceHolder)
             callback.onBitmapLoaded(bitmap, Picasso.LoadedFrom.MEMORY)
-        }.subscribe({
-            if (count == 0) assertTrue(it is TargetState.PrepareLoad)
-            else assertTrue(it is TargetState.BitmapLoaded)
-        }, { }, { completed = true })
+        }.subscribe(observer)
+        observer.assertValueAt(0) { t -> t is BitmapTargetState.PrepareLoad && t.placeHolderDrawable == drawablePlaceHolder }
+        observer.assertValueAt(1) { t -> t is BitmapTargetState.BitmapLoaded && t.bitmap == bitmap }
+        observer.assertComplete()
 
-        assertTrue(completed)
-
-        completed = false
-
-        Observable.create<TargetState> { emitter ->
+        observer = TestObserver()
+        Observable.create<BitmapTargetState> { emitter ->
             val callback = RxPicasso.ObservableTarget(emitter)
-            callback.onBitmapFailed(error, null)
-        }.subscribe({ assertTrue(it is TargetState.BitmapFailed) },
-            { assertEquals(it, error) },
-            { completed = true })
-
-        assertFalse(completed)
+            callback.onPrepareLoad(drawablePlaceHolder)
+            callback.onBitmapFailed(error, drawableError)
+        }.subscribe(observer)
+        observer.assertValueAt(1) { t -> t is BitmapTargetState.BitmapFailed && t.errorDrawable == drawableError }
+        observer.assertError(error)
+        observer.assertNotComplete()
     }
 }

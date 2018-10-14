@@ -8,15 +8,15 @@ import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import android.widget.RemoteViews
 import androidx.annotation.IdRes
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.RequestCreator
-import com.squareup.picasso.Target
+import com.squareup.picasso3.BitmapTarget
+import com.squareup.picasso3.Callback
+import com.squareup.picasso3.Picasso
+import com.squareup.picasso3.RequestCreator
 import io.reactivex.*
 
 object RxPicasso {
     /**
-     * [com.squareup.picasso.RequestCreator.into] (ImageView)
+     * [com.squareup.picasso3.RequestCreator.into] (ImageView)
      */
     @JvmStatic
     fun observeInto(
@@ -33,7 +33,7 @@ object RxPicasso {
         }
 
     /**
-     * [com.squareup.picasso.RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
+     * [com.squareup.picasso3.RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
      */
     @JvmStatic
     fun observeInto(
@@ -57,7 +57,7 @@ object RxPicasso {
     }
 
     /**
-     * [com.squareup.picasso.RequestCreator.into] (RemoteViews, Int, IntArray)
+     * [com.squareup.picasso3.RequestCreator.into] (RemoteViews, Int, IntArray)
      */
     @JvmStatic
     fun observeInto(
@@ -76,35 +76,35 @@ object RxPicasso {
     }
 
     /**
-     * [com.squareup.picasso.RequestCreator.into] (Target)
+     * [com.squareup.picasso3.RequestCreator.into] (BitmapTarget)
      */
     @JvmStatic
     fun observeIntoBitmap(picasso: Picasso, requestCreator: RequestCreator): Single<Bitmap> =
         Single.create { emitter ->
-            val target = SingleTarget(emitter)
-            emitter.setCancellable { picasso.cancelRequest(target) }
-            requestCreator.into(target)
+            val bitmapTarget = SingleTarget(emitter)
+            emitter.setCancellable { picasso.cancelRequest(bitmapTarget) }
+            requestCreator.into(bitmapTarget)
         }
 
     /**
-     * [com.squareup.picasso.RequestCreator.into] (Target)
+     * [com.squareup.picasso3.RequestCreator.into] (BitmapTarget)
      */
     @JvmStatic
-    fun observeIntoTarget(
+    fun observeIntoBitmapTarget(
         picasso: Picasso,
         requestCreator: RequestCreator
-    ): Observable<TargetState> =
+    ): Observable<BitmapTargetState> =
         Observable.create { emitter ->
-            val target = ObservableTarget(emitter)
-            emitter.setCancellable { picasso.cancelRequest(target) }
-            requestCreator.into(target)
+            val bitmapTarget = ObservableTarget(emitter)
+            emitter.setCancellable { picasso.cancelRequest(bitmapTarget) }
+            requestCreator.into(bitmapTarget)
         }
 
     /**
      * [tag] is only required if you want to cancel fetch when stream is disposed. It will override
-     * any previously tag set from [com.squareup.picasso.RequestCreator.tag]
+     * any previously tag set from [com.squareup.picasso3.RequestCreator.tag]
      * !!! For now cancellation doesn't work https://github.com/square/picasso/issues/1205 !!!
-     * [com.squareup.picasso.RequestCreator.fetch]
+     * [com.squareup.picasso3.RequestCreator.fetch]
      */
     @JvmStatic
     @JvmOverloads
@@ -126,16 +126,16 @@ object RxPicasso {
             emitter.onComplete()
         }
 
-        override fun onError(e: Exception) {
-            emitter.onError(e)
+        override fun onError(t: Throwable) {
+            emitter.onError(t)
         }
     }
 
-    internal class SingleTarget(private val emitter: SingleEmitter<Bitmap>) : Target {
+    internal class SingleTarget(private val emitter: SingleEmitter<Bitmap>) : BitmapTarget {
         override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
         }
 
-        override fun onBitmapFailed(e: java.lang.Exception, errorDrawable: Drawable?) {
+        override fun onBitmapFailed(e: Exception, errorDrawable: Drawable?) {
             emitter.onError(e)
         }
 
@@ -144,18 +144,19 @@ object RxPicasso {
         }
     }
 
-    internal class ObservableTarget(private val emitter: ObservableEmitter<TargetState>) : Target {
+    internal class ObservableTarget(private val emitter: ObservableEmitter<BitmapTargetState>) :
+        BitmapTarget {
         override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-            emitter.onNext(TargetState.PrepareLoad(placeHolderDrawable))
+            emitter.onNext(BitmapTargetState.PrepareLoad(placeHolderDrawable))
         }
 
-        override fun onBitmapFailed(e: java.lang.Exception, errorDrawable: Drawable?) {
-            emitter.onNext(TargetState.BitmapFailed(e, errorDrawable))
+        override fun onBitmapFailed(e: Exception, errorDrawable: Drawable?) {
+            emitter.onNext(BitmapTargetState.BitmapFailed(e, errorDrawable))
             emitter.onError(e)
         }
 
         override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
-            emitter.onNext(TargetState.BitmapLoaded(bitmap, from))
+            emitter.onNext(BitmapTargetState.BitmapLoaded(bitmap, from))
             emitter.onComplete()
         }
     }

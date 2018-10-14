@@ -6,8 +6,8 @@ import android.app.Notification
 import android.widget.ImageView
 import android.widget.RemoteViews
 import androidx.annotation.IdRes
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.RequestCreator
+import com.squareup.picasso3.Picasso
+import com.squareup.picasso3.RequestCreator
 
 /**
  * [net.samystudio.rxpicasso.RxPicasso.observeInto] (Picasso, RequestCreator, ImageView)
@@ -51,10 +51,10 @@ fun Picasso.observeIntoBitmap(requestCreator: RequestCreator) =
     RxPicasso.observeIntoBitmap(this, requestCreator)
 
 /**
- * [net.samystudio.rxpicasso.RxPicasso.observeIntoTarget]
+ * [net.samystudio.rxpicasso.RxPicasso.observeIntoBitmapTarget]
  */
-fun Picasso.observeIntoTarget(requestCreator: RequestCreator) =
-    RxPicasso.observeIntoTarget(this, requestCreator)
+fun Picasso.observeIntoBitmapTarget(requestCreator: RequestCreator) =
+    RxPicasso.observeIntoBitmapTarget(this, requestCreator)
 
 /**
  * [net.samystudio.rxpicasso.RxPicasso.observeFetch]

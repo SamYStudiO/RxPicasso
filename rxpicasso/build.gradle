@@ -23,7 +23,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     implementation "androidx.annotation:annotation:$versions.annotation"
     api "io.reactivex.rxjava2:rxjava:$versions.rxjava"
-    api "com.squareup.picasso:picasso:$versions.picasso"
+    api "com.squareup.picasso3:picasso:$versions.picasso"
     testImplementation "junit:junit:$versions.junit"
     testImplementation "org.mockito:mockito-core:$versions.mockito"
 }

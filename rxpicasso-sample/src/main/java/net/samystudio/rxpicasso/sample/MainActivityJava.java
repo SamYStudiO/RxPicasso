@@ -4,10 +4,10 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
+import com.squareup.picasso3.Picasso;
 
+import net.samystudio.rxpicasso.BitmapTargetState;
 import net.samystudio.rxpicasso.RxPicasso;
-import net.samystudio.rxpicasso.TargetState;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -53,16 +53,16 @@ public class MainActivityJava extends AppCompatActivity {
 
         // load image into a Picasso Target
         RxPicasso
-                .observeIntoTarget(picasso, picasso.load(path))
-                .subscribe(targetState -> {
-                    if (targetState instanceof TargetState.PrepareLoad) {
-                        // do something with targetState.placeHolderDrawable
+                .observeIntoBitmapTarget(picasso, picasso.load(path))
+                .subscribe(bitmapTargetState -> {
+                    if (bitmapTargetState instanceof BitmapTargetState.PrepareLoad) {
+                        // do something with bitmapTargetState.placeHolderDrawable
                     }
-                    if (targetState instanceof TargetState.BitmapFailed) {
-                        // do something with targetState.errorDrawable
+                    if (bitmapTargetState instanceof BitmapTargetState.BitmapFailed) {
+                        // do something with bitmapTargetState.errorDrawable
                     }
-                    if (targetState instanceof TargetState.BitmapLoaded) {
-                        // do something with targetState.bitmap or targetState.from
+                    if (bitmapTargetState instanceof BitmapTargetState.BitmapLoaded) {
+                        // do something with bitmapTargetState.bitmap or bitmapTargetState.from
                     }
                 }, Throwable::printStackTrace, () -> { /*completed*/ });
 
