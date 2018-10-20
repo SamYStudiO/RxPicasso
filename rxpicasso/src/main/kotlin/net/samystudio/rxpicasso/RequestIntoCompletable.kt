@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.RemoteViews
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
+import androidx.annotation.VisibleForTesting
 import com.squareup.picasso3.*
 import io.reactivex.Completable
 import io.reactivex.CompletableObserver
@@ -232,9 +233,10 @@ class RequestIntoCompletable private constructor(
      */
     fun noFade() = apply { requestCreator.noFade() }
 
-    internal class Listener private constructor(
+    @VisibleForTesting
+    internal class Listener(
         private val observer: CompletableObserver,
-        private val picasso: Picasso?
+        private val picasso: Picasso? = null
     ) : MainThreadDisposable(), Callback {
 
         private var imageView: ImageView? = null
@@ -244,7 +246,7 @@ class RequestIntoCompletable private constructor(
 
         internal constructor(
             observer: CompletableObserver,
-            picasso: Picasso?,
+            picasso: Picasso,
             imageView: ImageView
         ) : this(observer, picasso) {
             this.imageView = imageView
@@ -252,7 +254,7 @@ class RequestIntoCompletable private constructor(
 
         internal constructor(
             observer: CompletableObserver,
-            picasso: Picasso?,
+            picasso: Picasso,
             remoteViews: RemoteViews,
             @DrawableRes viewId: Int
         ) : this(observer, picasso) {
@@ -262,7 +264,7 @@ class RequestIntoCompletable private constructor(
 
         internal constructor(
             observer: CompletableObserver,
-            picasso: Picasso?,
+            picasso: Picasso,
             tag: Any?
         ) : this(observer, picasso) {
             this.tag = tag

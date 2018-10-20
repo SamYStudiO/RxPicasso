@@ -27,13 +27,13 @@ class RxPicassoTest {
     fun completableCallBack() {
         var observer = TestObserver<Unit>()
         var listener: RequestIntoCompletable.Listener =
-            RequestIntoCompletable.Listener(observer, null, null)
+            RequestIntoCompletable.Listener(observer)
         observer.onSubscribe(listener)
         listener.onSuccess()
         observer.assertComplete()
 
         observer = TestObserver()
-        listener = RequestIntoCompletable.Listener(observer, null, null)
+        listener = RequestIntoCompletable.Listener(observer)
         observer.onSubscribe(listener)
         listener.onError(error)
         observer.assertError(error)
@@ -44,14 +44,14 @@ class RxPicassoTest {
     fun singleBitmapTarget() {
         var observer = TestObserver<Bitmap>()
         var listener: RequestIntoBitmapSingle.Listener =
-            RequestIntoBitmapSingle.Listener(observer, null)
+            RequestIntoBitmapSingle.Listener(observer)
         observer.onSubscribe(listener)
         listener.onBitmapLoaded(bitmap, Picasso.LoadedFrom.MEMORY)
         observer.assertValue(bitmap)
         observer.assertComplete()
 
         observer = TestObserver()
-        listener = RequestIntoBitmapSingle.Listener(observer, null)
+        listener = RequestIntoBitmapSingle.Listener(observer)
         observer.onSubscribe(listener)
         listener.onBitmapFailed(error, null)
         observer.assertError(error)
@@ -62,7 +62,7 @@ class RxPicassoTest {
     fun observableBitmapTarget() {
         var observer = TestObserver<BitmapTargetState>()
         var listener: RequestIntoBitmapTargetObservable.Listener =
-            RequestIntoBitmapTargetObservable.Listener(observer, null)
+            RequestIntoBitmapTargetObservable.Listener(observer)
         observer.onSubscribe(listener)
         listener.onPrepareLoad(drawablePlaceHolder)
         listener.onBitmapLoaded(bitmap, Picasso.LoadedFrom.MEMORY)
@@ -71,7 +71,7 @@ class RxPicassoTest {
         observer.assertComplete()
 
         observer = TestObserver()
-        listener = RequestIntoBitmapTargetObservable.Listener(observer, null)
+        listener = RequestIntoBitmapTargetObservable.Listener(observer)
         observer.onSubscribe(listener)
         listener.onPrepareLoad(drawablePlaceHolder)
         listener.onBitmapFailed(error, drawableError)

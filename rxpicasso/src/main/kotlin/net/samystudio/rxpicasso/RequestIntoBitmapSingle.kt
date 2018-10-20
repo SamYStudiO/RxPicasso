@@ -5,6 +5,7 @@ package net.samystudio.rxpicasso
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
+import androidx.annotation.VisibleForTesting
 import com.squareup.picasso3.*
 import io.reactivex.Single
 import io.reactivex.SingleObserver
@@ -150,9 +151,10 @@ class RequestIntoBitmapSingle internal constructor(
      */
     fun noFade() = apply { requestCreator.noFade() }
 
+    @VisibleForTesting
     internal class Listener(
         private val observer: SingleObserver<in Bitmap>,
-        private val picasso: Picasso?
+        private val picasso: Picasso? = null
     ) : MainThreadDisposable(), BitmapTarget {
         override fun onDispose() {
             picasso?.cancelRequest(this)
