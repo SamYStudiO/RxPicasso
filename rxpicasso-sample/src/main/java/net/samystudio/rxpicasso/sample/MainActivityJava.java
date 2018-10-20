@@ -25,7 +25,9 @@ public class MainActivityJava extends AppCompatActivity {
 
         // load image into an imageView
         RxPicasso
-                .observeInto(picasso, picasso.load(path), imageView)
+                .observeInto(picasso, path, imageView)
+                .fit()
+                .rotate(90)
                 .subscribe(() -> {
                     // image loaded
                 }, Throwable::printStackTrace);
@@ -46,29 +48,29 @@ public class MainActivityJava extends AppCompatActivity {
 
         // load image into a bitmap
         RxPicasso
-                .observeIntoBitmap(picasso, picasso.load(path))
+                .observeIntoBitmap(picasso, path)
                 .subscribe(bitmap -> {
                     // bitmap loaded
                 }, Throwable::printStackTrace);
 
         // load image into a Picasso Target
         RxPicasso
-                .observeIntoBitmapTarget(picasso, picasso.load(path))
+                .observeIntoBitmapTarget(picasso, path)
                 .subscribe(bitmapTargetState -> {
                     if (bitmapTargetState instanceof BitmapTargetState.PrepareLoad) {
-                        // do something with bitmapTargetState.placeHolderDrawable
+                        // do something with targetState.placeHolderDrawable
                     }
                     if (bitmapTargetState instanceof BitmapTargetState.BitmapFailed) {
-                        // do something with bitmapTargetState.errorDrawable
+                        // do something with targetState.errorDrawable
                     }
                     if (bitmapTargetState instanceof BitmapTargetState.BitmapLoaded) {
-                        // do something with bitmapTargetState.bitmap or bitmapTargetState.from
+                        // do something with targetState.bitmap or targetState.from
                     }
                 }, Throwable::printStackTrace, () -> { /*completed*/ });
 
         // fetch image into cache
         RxPicasso
-                .observeFetch(picasso, picasso.load(path))
+                .observeFetch(picasso, path)
                 .subscribe(() -> {
                     // image loaded into cache
                 }, Throwable::printStackTrace);
