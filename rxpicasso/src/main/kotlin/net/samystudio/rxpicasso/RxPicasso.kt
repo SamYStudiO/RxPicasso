@@ -54,10 +54,7 @@ object RxPicasso {
     fun observeInto(
         picasso: Picasso, @DrawableRes resourceId: Int,
         imageView: ImageView
-    ): RequestIntoCompletable = run {
-        checkResourceId(resourceId)
-        RequestIntoCompletable(picasso, picasso.load(resourceId), imageView)
-    }
+    ): RequestIntoCompletable = RequestIntoCompletable(picasso, picasso.load(resourceId), imageView)
 
     /**
      * [RequestCreator.into] (ImageView)
@@ -153,18 +150,15 @@ object RxPicasso {
         notificationId: Int,
         notification: Notification,
         notificationTag: String
-    ) = run {
-        checkResourceId(resourceId)
-        RequestIntoCompletable(
-            picasso,
-            picasso.load(resourceId),
-            remoteViews,
-            viewId,
-            notificationId,
-            notification,
-            notificationTag
-        )
-    }
+    ) = RequestIntoCompletable(
+        picasso,
+        picasso.load(resourceId),
+        remoteViews,
+        viewId,
+        notificationId,
+        notification,
+        notificationTag
+    )
 
     /**
      * [Picasso.load] (Int)
@@ -258,16 +252,13 @@ object RxPicasso {
         @DrawableRes resourceId: Int,
         remoteViews: RemoteViews, @IdRes viewId: Int,
         appWidgetIds: IntArray
-    ) = run {
-        checkResourceId(resourceId)
-        RequestIntoCompletable(
-            picasso,
-            picasso.load(resourceId),
-            remoteViews,
-            viewId,
-            appWidgetIds
-        )
-    }
+    ) = RequestIntoCompletable(
+        picasso,
+        picasso.load(resourceId),
+        remoteViews,
+        viewId,
+        appWidgetIds
+    )
 
     /**
      * [RequestCreator.into] (RemoteViews, Int, IntArray)
@@ -320,10 +311,8 @@ object RxPicasso {
      */
     @CheckReturnValue
     @JvmStatic
-    fun observeIntoBitmap(picasso: Picasso, @DrawableRes resourceId: Int) = run {
-        checkResourceId(resourceId)
+    fun observeIntoBitmap(picasso: Picasso, @DrawableRes resourceId: Int) =
         RequestIntoBitmapSingle(picasso, picasso.load(resourceId))
-    }
 
     /**
      * [RequestCreator.into] (BitmapTarget)
@@ -366,10 +355,8 @@ object RxPicasso {
      */
     @CheckReturnValue
     @JvmStatic
-    fun observeIntoBitmapTarget(picasso: Picasso, @DrawableRes resourceId: Int) = run {
-        checkResourceId(resourceId)
+    fun observeIntoBitmapTarget(picasso: Picasso, @DrawableRes resourceId: Int) =
         RequestIntoBitmapTargetObservable(picasso, picasso.load(resourceId))
-    }
 
     /**
      * [RequestCreator.into] (BitmapTarget)
@@ -412,10 +399,8 @@ object RxPicasso {
      */
     @CheckReturnValue
     @JvmStatic
-    fun observeFetch(picasso: Picasso, @DrawableRes resourceId: Int) = run {
-        checkResourceId(resourceId)
+    fun observeFetch(picasso: Picasso, @DrawableRes resourceId: Int) =
         RequestIntoCompletable(picasso, picasso.load(resourceId))
-    }
 
     /**
      * [RequestCreator.fetch]
@@ -424,8 +409,4 @@ object RxPicasso {
     @JvmStatic
     fun observeFetch(picasso: Picasso, requestCreator: RequestCreator) =
         RequestIntoCompletable(picasso, requestCreator)
-
-    private fun checkResourceId(@DrawableRes resourceId: Int) {
-        if (resourceId == 0) throw IllegalArgumentException("resourceId must be a valid drawable resource.")
-    }
 }
