@@ -14,16 +14,16 @@ import java.io.File
 
 object RxPicasso {
     /**
-     * [com.squareup.picasso3.Picasso.load] (Uri)
-     * [com.squareup.picasso3.RequestCreator.into] (ImageView)
+     * [Picasso.load] (Uri)
+     * [RequestCreator.into] (ImageView)
      */
     @JvmStatic
     fun observeInto(picasso: Picasso, uri: Uri?, imageView: ImageView) =
         RequestIntoCompletable(picasso, picasso.load(uri), imageView)
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (String)
-     * [com.squareup.picasso3.RequestCreator.into] (ImageView)
+     * [Picasso.load] (String)
+     * [RequestCreator.into] (ImageView)
      */
     @JvmStatic
     fun observeInto(picasso: Picasso, path: String?, imageView: ImageView) =
@@ -34,31 +34,31 @@ object RxPicasso {
         )
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (File)
-     * [com.squareup.picasso3.RequestCreator.into] (ImageView)
+     * [Picasso.load] (File)
+     * [RequestCreator.into] (ImageView)
      */
     @JvmStatic
     fun observeInto(picasso: Picasso, file: File?, imageView: ImageView) =
         RequestIntoCompletable(picasso, picasso.load(file), imageView)
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (Int)
-     * [com.squareup.picasso3.RequestCreator.into] (ImageView)
+     * [Picasso.load] (Int)
+     * [RequestCreator.into] (ImageView)
      */
     @JvmStatic
     fun observeInto(picasso: Picasso, @DrawableRes resourceId: Int, imageView: ImageView) =
         RequestIntoCompletable(picasso, picasso.load(resourceId), imageView)
 
     /**
-     * [com.squareup.picasso3.RequestCreator.into] (ImageView)
+     * [RequestCreator.into] (ImageView)
      */
     @JvmStatic
     fun observeInto(picasso: Picasso, requestCreator: RequestCreator, imageView: ImageView) =
         RequestIntoCompletable(picasso, requestCreator, imageView)
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (Uri)
-     * [com.squareup.picasso3.RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
+     * [Picasso.load] (Uri)
+     * [RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
      */
     @JvmStatic
     fun observeInto(
@@ -80,8 +80,8 @@ object RxPicasso {
     )
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (String)
-     * [com.squareup.picasso3.RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
+     * [Picasso.load] (String)
+     * [RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
      */
     @JvmStatic
     fun observeInto(
@@ -103,8 +103,8 @@ object RxPicasso {
     )
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (File)
-     * [com.squareup.picasso3.RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
+     * [Picasso.load] (File)
+     * [RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
      */
     @JvmStatic
     fun observeInto(
@@ -126,8 +126,8 @@ object RxPicasso {
     )
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (File)
-     * [com.squareup.picasso3.RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
+     * [Picasso.load] (File)
+     * [RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
      */
     @JvmStatic
     fun observeInto(
@@ -150,8 +150,8 @@ object RxPicasso {
 
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (Int)
-     * [com.squareup.picasso3.RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
+     * [Picasso.load] (Int)
+     * [RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
      */
     @JvmStatic
     fun observeInto(
@@ -173,8 +173,8 @@ object RxPicasso {
     )
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (Uri)
-     * [com.squareup.picasso3.RequestCreator.into] (RemoteViews, Int, IntArray)
+     * [Picasso.load] (Uri)
+     * [RequestCreator.into] (RemoteViews, Int, IntArray)
      */
     @JvmStatic
     fun observeInto(
@@ -191,8 +191,8 @@ object RxPicasso {
     )
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (String)
-     * [com.squareup.picasso3.RequestCreator.into] (RemoteViews, Int, IntArray)
+     * [Picasso.load] (String)
+     * [RequestCreator.into] (RemoteViews, Int, IntArray)
      */
     @JvmStatic
     fun observeInto(
@@ -209,8 +209,8 @@ object RxPicasso {
     )
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (File)
-     * [com.squareup.picasso3.RequestCreator.into] (RemoteViews, Int, IntArray)
+     * [Picasso.load] (File)
+     * [RequestCreator.into] (RemoteViews, Int, IntArray)
      */
     @JvmStatic
     fun observeInto(
@@ -227,8 +227,8 @@ object RxPicasso {
     )
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (Int)
-     * [com.squareup.picasso3.RequestCreator.into] (RemoteViews, Int, IntArray)
+     * [Picasso.load] (Int)
+     * [RequestCreator.into] (RemoteViews, Int, IntArray)
      */
     @JvmStatic
     fun observeInto(
@@ -245,7 +245,7 @@ object RxPicasso {
     )
 
     /**
-     * [com.squareup.picasso3.RequestCreator.into] (RemoteViews, Int, IntArray)
+     * [RequestCreator.into] (RemoteViews, Int, IntArray)
      */
     @JvmStatic
     fun observeInto(
@@ -262,117 +262,117 @@ object RxPicasso {
     )
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (Uri)
-     * [com.squareup.picasso3.RequestCreator.into] (BitmapTarget)
+     * [Picasso.load] (Uri)
+     * [RequestCreator.into] (BitmapTarget)
      */
     @JvmStatic
     fun observeIntoBitmap(picasso: Picasso, uri: Uri?) =
         RequestIntoBitmapSingle(picasso, picasso.load(uri))
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (String)
-     * [com.squareup.picasso3.RequestCreator.into] (BitmapTarget)
+     * [Picasso.load] (String)
+     * [RequestCreator.into] (BitmapTarget)
      */
     @JvmStatic
     fun observeIntoBitmap(picasso: Picasso, path: String?) =
         RequestIntoBitmapSingle(picasso, picasso.load(path))
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (File)
-     * [com.squareup.picasso3.RequestCreator.into] (BitmapTarget)
+     * [Picasso.load] (File)
+     * [RequestCreator.into] (BitmapTarget)
      */
     @JvmStatic
     fun observeIntoBitmap(picasso: Picasso, file: File?) =
         RequestIntoBitmapSingle(picasso, picasso.load(file))
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (Int)
-     * [com.squareup.picasso3.RequestCreator.into] (BitmapTarget)
+     * [Picasso.load] (Int)
+     * [RequestCreator.into] (BitmapTarget)
      */
     @JvmStatic
     fun observeIntoBitmap(picasso: Picasso, @DrawableRes resourceId: Int) =
         RequestIntoBitmapSingle(picasso, picasso.load(resourceId))
 
     /**
-     * [com.squareup.picasso3.RequestCreator.into] (BitmapTarget)
+     * [RequestCreator.into] (BitmapTarget)
      */
     @JvmStatic
     fun observeIntoBitmap(picasso: Picasso, requestCreator: RequestCreator) =
         RequestIntoBitmapSingle(picasso, requestCreator)
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (Uri)
-     * [com.squareup.picasso3.RequestCreator.into] (BitmapTarget)
+     * [Picasso.load] (Uri)
+     * [RequestCreator.into] (BitmapTarget)
      */
     @JvmStatic
     fun observeIntoBitmapTarget(picasso: Picasso, uri: Uri?) =
         RequestIntoBitmapTargetObservable(picasso, picasso.load(uri))
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (String)
-     * [com.squareup.picasso3.RequestCreator.into] (BitmapTarget)
+     * [Picasso.load] (String)
+     * [RequestCreator.into] (BitmapTarget)
      */
     @JvmStatic
     fun observeIntoBitmapTarget(picasso: Picasso, path: String?) =
         RequestIntoBitmapTargetObservable(picasso, picasso.load(path))
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (File)
-     * [com.squareup.picasso3.RequestCreator.into] (BitmapTarget)
+     * [Picasso.load] (File)
+     * [RequestCreator.into] (BitmapTarget)
      */
     @JvmStatic
     fun observeIntoBitmapTarget(picasso: Picasso, file: File?) =
         RequestIntoBitmapTargetObservable(picasso, picasso.load(file))
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (Int)
-     * [com.squareup.picasso3.RequestCreator.into] (BitmapTarget)
+     * [Picasso.load] (Int)
+     * [RequestCreator.into] (BitmapTarget)
      */
     @JvmStatic
     fun observeIntoBitmapTarget(picasso: Picasso, @DrawableRes resourceId: Int) =
         RequestIntoBitmapTargetObservable(picasso, picasso.load(resourceId))
 
     /**
-     * [com.squareup.picasso3.RequestCreator.into] (BitmapTarget)
+     * [RequestCreator.into] (BitmapTarget)
      */
     @JvmStatic
     fun observeIntoBitmapTarget(picasso: Picasso, requestCreator: RequestCreator) =
         RequestIntoBitmapTargetObservable(picasso, requestCreator)
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (Uri)
-     * [com.squareup.picasso3.RequestCreator.fetch]
+     * [Picasso.load] (Uri)
+     * [RequestCreator.fetch]
      */
     @JvmStatic
     fun observeFetch(picasso: Picasso, uri: Uri?) =
         RequestIntoCompletable(picasso, picasso.load(uri))
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (String)
-     * [com.squareup.picasso3.RequestCreator.fetch]
+     * [Picasso.load] (String)
+     * [RequestCreator.fetch]
      */
     @JvmStatic
     fun observeFetch(picasso: Picasso, path: String?) =
         RequestIntoCompletable(picasso, picasso.load(path))
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (File)
-     * [com.squareup.picasso3.RequestCreator.fetch]
+     * [Picasso.load] (File)
+     * [RequestCreator.fetch]
      */
     @JvmStatic
     fun observeFetch(picasso: Picasso, file: File?) =
         RequestIntoCompletable(picasso, picasso.load(file))
 
     /**
-     * [com.squareup.picasso3.Picasso.load] (Int)
-     * [com.squareup.picasso3.RequestCreator.fetch]
+     * [Picasso.load] (Int)
+     * [RequestCreator.fetch]
      */
     @JvmStatic
     fun observeFetch(picasso: Picasso, @DrawableRes resourceId: Int) =
         RequestIntoCompletable(picasso, picasso.load(resourceId))
 
     /**
-     * [com.squareup.picasso3.RequestCreator.fetch]
+     * [RequestCreator.fetch]
      */
     @JvmStatic
     fun observeFetch(picasso: Picasso, requestCreator: RequestCreator) =

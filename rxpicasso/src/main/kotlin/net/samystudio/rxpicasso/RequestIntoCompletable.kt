@@ -15,6 +15,9 @@ import io.reactivex.Completable
 import io.reactivex.CompletableObserver
 import io.reactivex.android.MainThreadDisposable
 
+/**
+ * A [Completable] that wrap [RequestCreator] to easily modify request directly from this stream.
+ */
 class RequestIntoCompletable internal constructor(
     private val picasso: Picasso,
     private val requestCreator: RequestCreator
@@ -93,34 +96,34 @@ class RequestIntoCompletable internal constructor(
     }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.noPlaceholder]
+     * [RequestCreator.noPlaceholder]
      */
     fun noPlaceholder() = apply { requestCreator.noPlaceholder() }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.placeholder] (Int)
+     * [RequestCreator.placeholder] (Int)
      */
     fun placeholder(@DrawableRes placeholderResId: Int) =
         apply { requestCreator.placeholder(placeholderResId) }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.placeholder] (Drawable)
+     * [RequestCreator.placeholder] (Drawable)
      */
     fun placeholder(placeholderDrawable: Drawable) =
         apply { requestCreator.placeholder(placeholderDrawable) }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.error] (Int)
+     * [RequestCreator.error] (Int)
      */
     fun error(@DrawableRes errorResId: Int) = apply { requestCreator.error(errorResId) }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.error] (Drawable)
+     * [RequestCreator.error] (Drawable)
      */
     fun error(errorDrawable: Drawable) = apply { requestCreator.error(errorDrawable) }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.tag]
+     * [RequestCreator.tag]
      */
     fun tag(tag: Any) = apply {
         this.tag = tag
@@ -128,99 +131,99 @@ class RequestIntoCompletable internal constructor(
     }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.fit]
+     * [RequestCreator.fit]
      */
     fun fit() = apply { requestCreator.fit() }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.resizeDimen]
+     * [RequestCreator.resizeDimen]
      */
     fun resizeDimen(targetWidthResId: Int, targetHeightResId: Int) =
         apply { requestCreator.resizeDimen(targetWidthResId, targetHeightResId) }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.resize]
+     * [RequestCreator.resize]
      */
     fun resize(targetWidth: Int, targetHeight: Int) =
         apply { requestCreator.resize(targetWidth, targetHeight) }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.centerCrop]
+     * [RequestCreator.centerCrop]
      */
     fun centerCrop() = apply { requestCreator.centerCrop() }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.centerCrop] (Int)
+     * [RequestCreator.centerCrop] (Int)
      */
     fun centerCrop(alignGravity: Int) = apply { requestCreator.centerCrop(alignGravity) }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.centerInside]
+     * [RequestCreator.centerInside]
      */
     fun centerInside() = apply { requestCreator.centerInside() }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.onlyScaleDown]
+     * [RequestCreator.onlyScaleDown]
      */
     fun onlyScaleDown() = apply { requestCreator.onlyScaleDown() }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.rotate] (Float)
+     * [RequestCreator.rotate] (Float)
      */
     fun rotate(degrees: Float) = apply { requestCreator.rotate(degrees) }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.rotate] (Float, Float, Float)
+     * [RequestCreator.rotate] (Float, Float, Float)
      */
     fun rotate(degrees: Float, pivotX: Float, pivotY: Float) =
         apply { requestCreator.rotate(degrees, pivotX, pivotY) }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.config]
+     * [RequestCreator.config]
      */
     fun config(config: Bitmap.Config) = apply { requestCreator.config(config) }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.stableKey]
+     * [RequestCreator.stableKey]
      */
     fun stableKey(stableKey: String) = apply { requestCreator.stableKey(stableKey) }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.priority]
+     * [RequestCreator.priority]
      */
     fun priority(priority: Picasso.Priority) = apply { requestCreator.priority(priority) }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.transform] (Transformation)
+     * [RequestCreator.transform] (Transformation)
      */
     fun transform(transformation: Transformation) =
         apply { requestCreator.transform(transformation) }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.transform] (List<Transformation>)
+     * [RequestCreator.transform] (List<Transformation>)
      */
     fun transform(transformations: List<Transformation>) =
         apply { requestCreator.transform(transformations) }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.memoryPolicy]
+     * [RequestCreator.memoryPolicy]
      */
     fun memoryPolicy(policy: MemoryPolicy, vararg additional: MemoryPolicy) =
         apply { requestCreator.memoryPolicy(policy, *additional) }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.networkPolicy]
+     * [RequestCreator.networkPolicy]
      */
     fun networkPolicy(policy: NetworkPolicy, vararg additional: NetworkPolicy) =
         apply { requestCreator.networkPolicy(policy, *additional) }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.purgeable]
+     * [RequestCreator.purgeable]
      */
     fun purgeable() = apply { requestCreator.purgeable() }
 
     /**
-     * [com.squareup.picasso3.RequestCreator.noFade]
+     * [RequestCreator.noFade]
      */
     fun noFade() = apply { requestCreator.noFade() }
 
