@@ -15,7 +15,7 @@ import io.reactivex.Completable
 import io.reactivex.CompletableObserver
 import io.reactivex.android.MainThreadDisposable
 
-class RequestIntoCompletable private constructor(
+class RequestIntoCompletable internal constructor(
     private val picasso: Picasso,
     private val requestCreator: RequestCreator
 ) : Completable() {
@@ -65,26 +65,19 @@ class RequestIntoCompletable private constructor(
         this.appWidgetIds = appWidgetIds
     }
 
-    internal constructor(
-        picasso: Picasso,
-        requestCreator: RequestCreator,
-        tag: Any? = null
-    ) : this(picasso, requestCreator) {
-        this.tag = tag
-    }
-
     override fun subscribeActual(observer: CompletableObserver) {
         imageView?.let {
             val listener = Listener(observer, picasso, it)
             observer.onSubscribe(listener)
             requestCreator.into(it, listener)
-        }
-        remoteViews?.let {
+        } ?: remoteViews?.let {
             val listener = Listener(observer, picasso, it, viewId!!)
             observer.onSubscribe(listener)
-
-            if (appWidgetIds != null) requestCreator.into(it, viewId!!, notificationId!!)
-            else requestCreator.into(
+            if (appWidgetIds != null) requestCreator.into(
+                it,
+                viewId!!,
+                notificationId!!
+            ) else requestCreator.into(
                 it,
                 viewId!!,
                 notificationId!!,
@@ -92,9 +85,7 @@ class RequestIntoCompletable private constructor(
                 notificationTag!!,
                 listener
             )
-        }
-
-        if (imageView == null && remoteViews == null) {
+        } ?: run {
             val listener = Listener(observer, picasso, tag)
             observer.onSubscribe(listener)
             requestCreator.fetch(listener)
