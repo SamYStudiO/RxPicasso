@@ -10,6 +10,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import com.squareup.picasso3.Picasso
 import com.squareup.picasso3.RequestCreator
+import io.reactivex.annotations.CheckReturnValue
 import java.io.File
 
 object RxPicasso {
@@ -17,6 +18,7 @@ object RxPicasso {
      * [Picasso.load] (Uri)
      * [RequestCreator.into] (ImageView)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeInto(picasso: Picasso, uri: Uri, imageView: ImageView) =
         RequestIntoCompletable(picasso, picasso.load(uri), imageView)
@@ -25,6 +27,7 @@ object RxPicasso {
      * [Picasso.load] (String)
      * [RequestCreator.into] (ImageView)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeInto(picasso: Picasso, path: String, imageView: ImageView) =
         RequestIntoCompletable(
@@ -37,6 +40,7 @@ object RxPicasso {
      * [Picasso.load] (File)
      * [RequestCreator.into] (ImageView)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeInto(picasso: Picasso, file: File, imageView: ImageView) =
         RequestIntoCompletable(picasso, picasso.load(file), imageView)
@@ -45,6 +49,7 @@ object RxPicasso {
      * [Picasso.load] (Int)
      * [RequestCreator.into] (ImageView)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeInto(
         picasso: Picasso, @DrawableRes resourceId: Int,
@@ -57,6 +62,7 @@ object RxPicasso {
     /**
      * [RequestCreator.into] (ImageView)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeInto(picasso: Picasso, requestCreator: RequestCreator, imageView: ImageView) =
         RequestIntoCompletable(picasso, requestCreator, imageView)
@@ -65,6 +71,7 @@ object RxPicasso {
      * [Picasso.load] (Uri)
      * [RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeInto(
         picasso: Picasso,
@@ -88,6 +95,7 @@ object RxPicasso {
      * [Picasso.load] (String)
      * [RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeInto(
         picasso: Picasso,
@@ -111,6 +119,7 @@ object RxPicasso {
      * [Picasso.load] (File)
      * [RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeInto(
         picasso: Picasso,
@@ -134,6 +143,7 @@ object RxPicasso {
      * [Picasso.load] (File)
      * [RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeInto(
         picasso: Picasso,
@@ -160,6 +170,7 @@ object RxPicasso {
      * [Picasso.load] (Int)
      * [RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeInto(
         picasso: Picasso,
@@ -183,6 +194,7 @@ object RxPicasso {
      * [Picasso.load] (Uri)
      * [RequestCreator.into] (RemoteViews, Int, IntArray)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeInto(
         picasso: Picasso,
@@ -201,6 +213,7 @@ object RxPicasso {
      * [Picasso.load] (String)
      * [RequestCreator.into] (RemoteViews, Int, IntArray)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeInto(
         picasso: Picasso,
@@ -219,6 +232,7 @@ object RxPicasso {
      * [Picasso.load] (File)
      * [RequestCreator.into] (RemoteViews, Int, IntArray)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeInto(
         picasso: Picasso,
@@ -237,6 +251,7 @@ object RxPicasso {
      * [Picasso.load] (Int)
      * [RequestCreator.into] (RemoteViews, Int, IntArray)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeInto(
         picasso: Picasso,
@@ -257,6 +272,7 @@ object RxPicasso {
     /**
      * [RequestCreator.into] (RemoteViews, Int, IntArray)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeInto(
         picasso: Picasso,
@@ -275,6 +291,7 @@ object RxPicasso {
      * [Picasso.load] (Uri)
      * [RequestCreator.into] (BitmapTarget)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeIntoBitmap(picasso: Picasso, uri: Uri) =
         RequestIntoBitmapSingle(picasso, picasso.load(uri))
@@ -283,6 +300,7 @@ object RxPicasso {
      * [Picasso.load] (String)
      * [RequestCreator.into] (BitmapTarget)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeIntoBitmap(picasso: Picasso, path: String) =
         RequestIntoBitmapSingle(picasso, picasso.load(path))
@@ -291,6 +309,7 @@ object RxPicasso {
      * [Picasso.load] (File)
      * [RequestCreator.into] (BitmapTarget)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeIntoBitmap(picasso: Picasso, file: File) =
         RequestIntoBitmapSingle(picasso, picasso.load(file))
@@ -299,6 +318,7 @@ object RxPicasso {
      * [Picasso.load] (Int)
      * [RequestCreator.into] (BitmapTarget)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeIntoBitmap(picasso: Picasso, @DrawableRes resourceId: Int) = run {
         checkResourceId(resourceId)
@@ -308,6 +328,7 @@ object RxPicasso {
     /**
      * [RequestCreator.into] (BitmapTarget)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeIntoBitmap(picasso: Picasso, requestCreator: RequestCreator) =
         RequestIntoBitmapSingle(picasso, requestCreator)
@@ -316,6 +337,7 @@ object RxPicasso {
      * [Picasso.load] (Uri)
      * [RequestCreator.into] (BitmapTarget)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeIntoBitmapTarget(picasso: Picasso, uri: Uri) =
         RequestIntoBitmapTargetObservable(picasso, picasso.load(uri))
@@ -324,6 +346,7 @@ object RxPicasso {
      * [Picasso.load] (String)
      * [RequestCreator.into] (BitmapTarget)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeIntoBitmapTarget(picasso: Picasso, path: String) =
         RequestIntoBitmapTargetObservable(picasso, picasso.load(path))
@@ -332,6 +355,7 @@ object RxPicasso {
      * [Picasso.load] (File)
      * [RequestCreator.into] (BitmapTarget)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeIntoBitmapTarget(picasso: Picasso, file: File) =
         RequestIntoBitmapTargetObservable(picasso, picasso.load(file))
@@ -340,6 +364,7 @@ object RxPicasso {
      * [Picasso.load] (Int)
      * [RequestCreator.into] (BitmapTarget)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeIntoBitmapTarget(picasso: Picasso, @DrawableRes resourceId: Int) = run {
         checkResourceId(resourceId)
@@ -349,6 +374,7 @@ object RxPicasso {
     /**
      * [RequestCreator.into] (BitmapTarget)
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeIntoBitmapTarget(picasso: Picasso, requestCreator: RequestCreator) =
         RequestIntoBitmapTargetObservable(picasso, requestCreator)
@@ -357,6 +383,7 @@ object RxPicasso {
      * [Picasso.load] (Uri)
      * [RequestCreator.fetch]
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeFetch(picasso: Picasso, uri: Uri) =
         RequestIntoCompletable(picasso, picasso.load(uri))
@@ -365,6 +392,7 @@ object RxPicasso {
      * [Picasso.load] (String)
      * [RequestCreator.fetch]
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeFetch(picasso: Picasso, path: String) =
         RequestIntoCompletable(picasso, picasso.load(path))
@@ -373,6 +401,7 @@ object RxPicasso {
      * [Picasso.load] (File)
      * [RequestCreator.fetch]
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeFetch(picasso: Picasso, file: File) =
         RequestIntoCompletable(picasso, picasso.load(file))
@@ -381,6 +410,7 @@ object RxPicasso {
      * [Picasso.load] (Int)
      * [RequestCreator.fetch]
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeFetch(picasso: Picasso, @DrawableRes resourceId: Int) = run {
         checkResourceId(resourceId)
@@ -390,6 +420,7 @@ object RxPicasso {
     /**
      * [RequestCreator.fetch]
      */
+    @CheckReturnValue
     @JvmStatic
     fun observeFetch(picasso: Picasso, requestCreator: RequestCreator) =
         RequestIntoCompletable(picasso, requestCreator)
