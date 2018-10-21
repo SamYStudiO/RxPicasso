@@ -24,7 +24,7 @@ class RxPicassoTest {
     }
 
     @Test
-    fun completableCallBack() {
+    fun requestIntoCompletable() {
         var observer = TestObserver<Unit>()
         var listener: RequestIntoCompletable.Listener =
             RequestIntoCompletable.Listener(observer)
@@ -41,7 +41,7 @@ class RxPicassoTest {
     }
 
     @Test
-    fun singleBitmapTarget() {
+    fun requestIntoBitmapSingle() {
         var observer = TestObserver<Bitmap>()
         var listener: RequestIntoBitmapSingle.Listener =
             RequestIntoBitmapSingle.Listener(observer)
@@ -59,7 +59,7 @@ class RxPicassoTest {
     }
 
     @Test
-    fun observableBitmapTarget() {
+    fun requestIntoBitmapTargetObservable() {
         var observer = TestObserver<BitmapTargetState>()
         var listener: RequestIntoBitmapTargetObservable.Listener =
             RequestIntoBitmapTargetObservable.Listener(observer)
