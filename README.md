@@ -2,6 +2,8 @@ RxPicasso
 =========
 [Reactive](https://github.com/ReactiveX/RxJava) [Picasso](https://github.com/square/picasso) callbacks.
 
+Warning: this library is only compatible with Picasso 3 which is under development for now and thus this library api may changes drastically as Picasso 3 make its own changes.
+
 Download
 --------
 **Java**
