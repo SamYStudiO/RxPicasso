@@ -65,7 +65,7 @@ RxPicasso
             // bitmap loaded
         }, Throwable::printStackTrace);
 ```
-Check rxpicasso-sample for more examples.
+Check [rxpicasso-sample](https://github.com/SamYStudiO/RxPicasso/blob/master/rxpicasso-sample/src/main/java/net/samystudio/rxpicasso/sample/MainActivityJava.java) for more examples.
 
 **Kotlin:**
 ```kotlin
@@ -98,7 +98,7 @@ picasso
         it.printStackTrace()
     })
 ```
-Check rxpicasso-kotlin-sample for more examples.
+Check [rxpicasso-kotlin-sample](https://github.com/SamYStudiO/RxPicasso/blob/master/rxpicasso-kotlin-sample/src/main/kotlin/net/samystudio/rxpicasso/sample/MainActivityKotlin.kt) for more examples.
 
 License
 -------
