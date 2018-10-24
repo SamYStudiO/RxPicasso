@@ -8,11 +8,11 @@ Download
 --------
 **Java**
 ```groovy
-implementation 'net.samystudio.rxpicasso:rxpicasso:0.2.0'
+implementation 'net.samystudio.rxpicasso:rxpicasso:0.3.0'
 ```
 **Kotlin**
 ```groovy
-implementation 'net.samystudio.rxpicasso:rxpicasso-kotlin:0.2.0'
+implementation 'net.samystudio.rxpicasso:rxpicasso-kotlin:0.3.0'
 ```
 
 Snapshots are available from [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/).
@@ -31,11 +31,11 @@ and change library version:
 
 **Java**
 ```groovy
-implementation 'net.samystudio.rxpicasso:rxpicasso:0.3.0-SNAPSHOT'
+implementation 'net.samystudio.rxpicasso:rxpicasso:0.4.0-SNAPSHOT'
 ```
 **Kotlin**
 ```groovy
-implementation 'net.samystudio.rxpicasso:rxpicasso-kotlin:0.3.0-SNAPSHOT'
+implementation 'net.samystudio.rxpicasso:rxpicasso-kotlin:0.4.0-SNAPSHOT'
 ```
 
 Usage
@@ -44,77 +44,45 @@ Usage
 ```java
 // load image into an imageView
 RxPicasso
-        .observeInto(picasso, picasso.load(path), imageView)
+        .observeInto(picasso, path, imageView)
         .subscribe(() -> {
             // image loaded
         }, Throwable::printStackTrace);
 
-// load image into remote view (notification)
+// load image into an imageView building request directly from stream
 RxPicasso
-        .observeInto(picasso, picasso.load(path), remoteViews, viewId, notficationId, notification, notificationTag)
-        .subscribe(() -> {
-            // image loaded
-        }, Throwable::printStackTrace);
-
-// load image into remote view (notification)
-RxPicasso
-        .observeInto(picasso, picasso.load(path), remoteViews, viewId, appWidgetIds)
+        .observeInto(picasso, path, imageView)
+        .resize(500, 500)
+        .rotate(180)
         .subscribe(() -> {
             // image loaded
         }, Throwable::printStackTrace);
 
 // load image into a bitmap
 RxPicasso
-        .observeIntoBitmap(picasso, picasso.load(path))
+        .observeIntoBitmap(picasso, path)
         .subscribe(bitmap -> {
             // bitmap loaded
         }, Throwable::printStackTrace);
-
-// load image into a Picasso Target
-RxPicasso
-        .observeIntoTarget(picasso, picasso.load(path))
-        .subscribe(targetState -> {
-            if (targetState instanceof TargetState.PrepareLoad) {
-                // do something with targetState.placeHolderDrawable
-            }
-            if (targetState instanceof TargetState.BitmapFailed) {
-                // do something with targetState.errorDrawable
-            }
-            if (targetState instanceof TargetState.BitmapLoaded) {
-                // do something with targetState.bitmap or targetState.from
-            }
-        }, Throwable::printStackTrace, () -> { /*completed*/ });
-
-// fetch image into cache
-RxPicasso
-        .observeFetch(picasso, picasso.load(path))
-        .subscribe(() -> {
-            // image loaded into cache
-        }, Throwable::printStackTrace);
 ```
+Check rxpicasso-sample for more examples.
+
 **Kotlin:**
 ```kotlin
 // load image into an imageView
 picasso
-    .observeInto(picasso.load(path), imageView)
+    .observeInto(path, imageView)
     .subscribe({
         // image loaded
     }, {
         it.printStackTrace()
     })
-
-// load image into remote view (notification)
+    
+// load image into an imageView building request directly from stream
 picasso
-    .observeInto(picasso.load(path), remoteViews, viewId, notficationId, notification, notificationTag)
-    .subscribe({
-        // image loaded
-    }, {
-        it.printStackTrace()
-    })
-
-// load image into remote view (notification)
-picasso
-    .observeInto(picasso.load(path), remoteViews, viewId, appWidgetIds)
+    .observeInto(path, imageView)
+    .resize(500, 500)
+    .rotate(180f)
     .subscribe({
         // image loaded
     }, {
@@ -123,43 +91,14 @@ picasso
 
 // load image into a bitmap
 picasso
-    .observeIntoBitmap(picasso.load(path))
+    .observeIntoBitmap(path)
     .subscribe({ bitmap ->
         // bitmap loaded
     }, {
         it.printStackTrace()
     })
-
-// load image into a Picasso Target
-picasso
-    .observeIntoTarget(picasso.load(path))
-    .subscribe({ state: TargetState ->
-        when (state) {
-            is TargetState.PrepareLoad -> {
-                // do something with state.placeHolderDrawable
-            }
-            is TargetState.BitmapFailed -> {
-                // do something with state.errorDrawable
-            }
-            is TargetState.BitmapLoaded -> {
-                // do something with state.bitmap or state.from
-            }
-        }
-    }, {
-        it.printStackTrace()
-    }, {
-        // completed
-    })
-
-// fetch image into cache
-picasso
-    .observeFetch(picasso.load(path))
-    .subscribe({
-        // image loaded into cache
-    }, {
-        it.printStackTrace()
-    })
 ```
+Check rxpicasso-kotlin-sample for more examples.
 
 License
 -------
