@@ -29,6 +29,17 @@ class MainActivityKotlin : AppCompatActivity() {
                 it.printStackTrace()
             })
 
+        // load image into an imageView building request directly from stream
+        picasso
+            .observeInto(path, imageView)
+            .resize(500, 500)
+            .rotate(180f)
+            .subscribe({
+                // image loaded
+            }, {
+                it.printStackTrace()
+            })
+
         // load image into remote view (notification)
         /*picasso
             .observeInto(picasso.load(path), remoteViews, viewId, notficationId, notification, notificationTag)

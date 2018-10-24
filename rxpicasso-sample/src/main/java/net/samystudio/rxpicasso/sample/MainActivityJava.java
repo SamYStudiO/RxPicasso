@@ -21,13 +21,21 @@ public class MainActivityJava extends AppCompatActivity {
         Picasso picasso = new Picasso.Builder(this).build();
         String path = "https://avatars0.githubusercontent.com/u/3678076?s=400&u=6d8288bcdd22f9ce85e3c12d49bfeaac54a035f9&v=4";
         ImageView imageView = new ImageView(this);
+        imageView.setScaleType(ImageView.ScaleType.CENTER);
         setContentView(imageView);
 
         // load image into an imageView
         RxPicasso
                 .observeInto(picasso, path, imageView)
-                .fit()
-                .rotate(90)
+                .subscribe(() -> {
+                    // image loaded
+                }, Throwable::printStackTrace);
+
+        // load image into an imageView building request directly from stream
+        RxPicasso
+                .observeInto(picasso, path, imageView)
+                .resize(500, 500)
+                .rotate(180)
                 .subscribe(() -> {
                     // image loaded
                 }, Throwable::printStackTrace);
