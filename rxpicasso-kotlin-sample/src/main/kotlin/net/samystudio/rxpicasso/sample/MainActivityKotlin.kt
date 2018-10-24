@@ -22,7 +22,7 @@ class MainActivityKotlin : AppCompatActivity() {
 
         // load image into an imageView
         picasso
-            .observeInto(picasso.load(path), imageView)
+            .observeInto(path, imageView)
             .subscribe({
                 // image loaded
             }, {
@@ -49,7 +49,7 @@ class MainActivityKotlin : AppCompatActivity() {
 
         // load image into a bitmap
         picasso
-            .observeIntoBitmap(picasso.load(path))
+            .observeIntoBitmap(path)
             .subscribe({ bitmap ->
                 // bitmap loaded
             }, {
@@ -58,17 +58,17 @@ class MainActivityKotlin : AppCompatActivity() {
 
         // load image into a Picasso Target
         picasso
-            .observeIntoBitmapTarget(picasso.load(path))
-            .subscribe({ bitmapTargetState ->
-                when (bitmapTargetState) {
+            .observeIntoBitmapTarget(path)
+            .subscribe({ state: BitmapTargetState ->
+                when (state) {
                     is BitmapTargetState.PrepareLoad -> {
-                        // do something with bitmapTargetState.placeHolderDrawable
+                        // do something with state.placeHolderDrawable
                     }
                     is BitmapTargetState.BitmapFailed -> {
-                        // do something with bitmapTargetState.errorDrawable
+                        // do something with state.errorDrawable
                     }
                     is BitmapTargetState.BitmapLoaded -> {
-                        // do something with bitmapTargetState.bitmap or bitmapTargetState.from
+                        // do something with state.bitmap or state.from
                     }
                 }
             }, {
@@ -79,7 +79,7 @@ class MainActivityKotlin : AppCompatActivity() {
 
         // fetch image into cache
         picasso
-            .observeFetch(picasso.load(path))
+            .observeFetch(path)
             .subscribe({
                 // image loaded into cache
             }, {

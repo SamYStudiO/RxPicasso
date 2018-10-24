@@ -3,38 +3,168 @@
 package net.samystudio.rxpicasso
 
 import android.app.Notification
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.widget.ImageView
 import android.widget.RemoteViews
+import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
-import com.squareup.picasso3.BitmapTarget
-import com.squareup.picasso3.Callback
 import com.squareup.picasso3.Picasso
 import com.squareup.picasso3.RequestCreator
-import io.reactivex.*
+import io.reactivex.annotations.CheckReturnValue
+import java.io.File
 
 object RxPicasso {
     /**
-     * [com.squareup.picasso3.RequestCreator.into] (ImageView)
+     * [Picasso.load] (Uri)
+     * [RequestCreator.into] (ImageView)
      */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeInto(picasso: Picasso, uri: Uri, imageView: ImageView) =
+        RequestIntoCompletable(picasso, picasso.load(uri), imageView)
+
+    /**
+     * [Picasso.load] (String)
+     * [RequestCreator.into] (ImageView)
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeInto(picasso: Picasso, path: String, imageView: ImageView) =
+        RequestIntoCompletable(
+            picasso,
+            picasso.load(path),
+            imageView
+        )
+
+    /**
+     * [Picasso.load] (File)
+     * [RequestCreator.into] (ImageView)
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeInto(picasso: Picasso, file: File, imageView: ImageView) =
+        RequestIntoCompletable(picasso, picasso.load(file), imageView)
+
+    /**
+     * [Picasso.load] (Int)
+     * [RequestCreator.into] (ImageView)
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeInto(
+        picasso: Picasso, @DrawableRes resourceId: Int,
+        imageView: ImageView
+    ): RequestIntoCompletable = RequestIntoCompletable(picasso, picasso.load(resourceId), imageView)
+
+    /**
+     * [RequestCreator.into] (ImageView)
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeInto(picasso: Picasso, requestCreator: RequestCreator, imageView: ImageView) =
+        RequestIntoCompletable(picasso, requestCreator, imageView)
+
+    /**
+     * [Picasso.load] (Uri)
+     * [RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
+     */
+    @CheckReturnValue
     @JvmStatic
     fun observeInto(
         picasso: Picasso,
-        requestCreator: RequestCreator,
-        imageView: ImageView
-    ): Completable =
-        Completable.create { emitter ->
-            emitter.setCancellable { picasso.cancelRequest(imageView) }
-            requestCreator.into(
-                imageView,
-                CompletableCallBack(emitter)
-            )
-        }
+        uri: Uri,
+        remoteViews: RemoteViews,
+        @IdRes viewId: Int,
+        notificationId: Int,
+        notification: Notification,
+        notificationTag: String
+    ) = RequestIntoCompletable(
+        picasso,
+        picasso.load(uri),
+        remoteViews,
+        viewId,
+        notificationId,
+        notification,
+        notificationTag
+    )
 
     /**
-     * [com.squareup.picasso3.RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
+     * [Picasso.load] (String)
+     * [RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
      */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeInto(
+        picasso: Picasso,
+        path: String,
+        remoteViews: RemoteViews,
+        @IdRes viewId: Int,
+        notificationId: Int,
+        notification: Notification,
+        notificationTag: String
+    ) = RequestIntoCompletable(
+        picasso,
+        picasso.load(path),
+        remoteViews,
+        viewId,
+        notificationId,
+        notification,
+        notificationTag
+    )
+
+    /**
+     * [Picasso.load] (File)
+     * [RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeInto(
+        picasso: Picasso,
+        file: File,
+        remoteViews: RemoteViews,
+        @IdRes viewId: Int,
+        notificationId: Int,
+        notification: Notification,
+        notificationTag: String
+    ) = RequestIntoCompletable(
+        picasso,
+        picasso.load(file),
+        remoteViews,
+        viewId,
+        notificationId,
+        notification,
+        notificationTag
+    )
+
+    /**
+     * [Picasso.load] (File)
+     * [RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeInto(
+        picasso: Picasso,
+        @DrawableRes resourceId: Int,
+        remoteViews: RemoteViews,
+        @IdRes viewId: Int,
+        notificationId: Int,
+        notification: Notification,
+        notificationTag: String
+    ) = RequestIntoCompletable(
+        picasso,
+        picasso.load(resourceId),
+        remoteViews,
+        viewId,
+        notificationId,
+        notification,
+        notificationTag
+    )
+
+    /**
+     * [Picasso.load] (Int)
+     * [RequestCreator.into] (RemoteViews, Int, Int, Notification, String)
+     */
+    @CheckReturnValue
     @JvmStatic
     fun observeInto(
         picasso: Picasso,
@@ -44,120 +174,239 @@ object RxPicasso {
         notificationId: Int,
         notification: Notification,
         notificationTag: String
-    ): Completable = Completable.create { emitter ->
-        emitter.setCancellable { picasso.cancelRequest(remoteViews, viewId) }
-        requestCreator.into(
-            remoteViews,
-            viewId,
-            notificationId,
-            notification,
-            notificationTag,
-            CompletableCallBack(emitter)
-        )
-    }
+    ) = RequestIntoCompletable(
+        picasso,
+        requestCreator,
+        remoteViews,
+        viewId,
+        notificationId,
+        notification,
+        notificationTag
+    )
 
     /**
-     * [com.squareup.picasso3.RequestCreator.into] (RemoteViews, Int, IntArray)
+     * [Picasso.load] (Uri)
+     * [RequestCreator.into] (RemoteViews, Int, IntArray)
      */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeInto(
+        picasso: Picasso,
+        uri: Uri,
+        remoteViews: RemoteViews, @IdRes viewId: Int,
+        appWidgetIds: IntArray
+    ) = RequestIntoCompletable(
+        picasso,
+        picasso.load(uri),
+        remoteViews,
+        viewId,
+        appWidgetIds
+    )
+
+    /**
+     * [Picasso.load] (String)
+     * [RequestCreator.into] (RemoteViews, Int, IntArray)
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeInto(
+        picasso: Picasso,
+        path: String,
+        remoteViews: RemoteViews, @IdRes viewId: Int,
+        appWidgetIds: IntArray
+    ) = RequestIntoCompletable(
+        picasso,
+        picasso.load(path),
+        remoteViews,
+        viewId,
+        appWidgetIds
+    )
+
+    /**
+     * [Picasso.load] (File)
+     * [RequestCreator.into] (RemoteViews, Int, IntArray)
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeInto(
+        picasso: Picasso,
+        file: File,
+        remoteViews: RemoteViews, @IdRes viewId: Int,
+        appWidgetIds: IntArray
+    ) = RequestIntoCompletable(
+        picasso,
+        picasso.load(file),
+        remoteViews,
+        viewId,
+        appWidgetIds
+    )
+
+    /**
+     * [Picasso.load] (Int)
+     * [RequestCreator.into] (RemoteViews, Int, IntArray)
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeInto(
+        picasso: Picasso,
+        @DrawableRes resourceId: Int,
+        remoteViews: RemoteViews, @IdRes viewId: Int,
+        appWidgetIds: IntArray
+    ) = RequestIntoCompletable(
+        picasso,
+        picasso.load(resourceId),
+        remoteViews,
+        viewId,
+        appWidgetIds
+    )
+
+    /**
+     * [RequestCreator.into] (RemoteViews, Int, IntArray)
+     */
+    @CheckReturnValue
     @JvmStatic
     fun observeInto(
         picasso: Picasso,
         requestCreator: RequestCreator,
         remoteViews: RemoteViews, @IdRes viewId: Int,
         appWidgetIds: IntArray
-    ): Completable = Completable.create { emitter ->
-        emitter.setCancellable { picasso.cancelRequest(remoteViews, viewId) }
-        requestCreator.into(
-            remoteViews,
-            viewId,
-            appWidgetIds,
-            CompletableCallBack(emitter)
-        )
-    }
+    ) = RequestIntoCompletable(
+        picasso,
+        requestCreator,
+        remoteViews,
+        viewId,
+        appWidgetIds
+    )
 
     /**
-     * [com.squareup.picasso3.RequestCreator.into] (BitmapTarget)
+     * [Picasso.load] (Uri)
+     * [RequestCreator.into] (BitmapTarget)
      */
+    @CheckReturnValue
     @JvmStatic
-    fun observeIntoBitmap(picasso: Picasso, requestCreator: RequestCreator): Single<Bitmap> =
-        Single.create { emitter ->
-            val bitmapTarget = SingleTarget(emitter)
-            emitter.setCancellable { picasso.cancelRequest(bitmapTarget) }
-            requestCreator.into(bitmapTarget)
-        }
+    fun observeIntoBitmap(picasso: Picasso, uri: Uri) =
+        RequestIntoBitmapSingle(picasso, picasso.load(uri))
 
     /**
-     * [com.squareup.picasso3.RequestCreator.into] (BitmapTarget)
+     * [Picasso.load] (String)
+     * [RequestCreator.into] (BitmapTarget)
      */
+    @CheckReturnValue
     @JvmStatic
-    fun observeIntoBitmapTarget(
-        picasso: Picasso,
-        requestCreator: RequestCreator
-    ): Observable<BitmapTargetState> =
-        Observable.create { emitter ->
-            val bitmapTarget = ObservableTarget(emitter)
-            emitter.setCancellable { picasso.cancelRequest(bitmapTarget) }
-            requestCreator.into(bitmapTarget)
-        }
+    fun observeIntoBitmap(picasso: Picasso, path: String) =
+        RequestIntoBitmapSingle(picasso, picasso.load(path))
 
     /**
-     * [tag] is only required if you want to cancel fetch when stream is disposed. It will override
-     * any previously tag set from [com.squareup.picasso3.RequestCreator.tag]
-     * !!! For now cancellation doesn't work https://github.com/square/picasso/issues/1205 !!!
-     * [com.squareup.picasso3.RequestCreator.fetch]
+     * [Picasso.load] (File)
+     * [RequestCreator.into] (BitmapTarget)
      */
+    @CheckReturnValue
     @JvmStatic
-    @JvmOverloads
-    fun observeFetch(
-        picasso: Picasso,
-        requestCreator: RequestCreator,
-        tag: Any? = null
-    ): Completable =
-        Completable.create { emitter ->
-            tag?.let {
-                requestCreator.tag(it)
-                emitter.setCancellable { picasso.cancelTag(it) }
-            }
-            requestCreator.fetch(CompletableCallBack(emitter))
-        }
+    fun observeIntoBitmap(picasso: Picasso, file: File) =
+        RequestIntoBitmapSingle(picasso, picasso.load(file))
 
-    internal class CompletableCallBack(private val emitter: CompletableEmitter) : Callback {
-        override fun onSuccess() {
-            emitter.onComplete()
-        }
+    /**
+     * [Picasso.load] (Int)
+     * [RequestCreator.into] (BitmapTarget)
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeIntoBitmap(picasso: Picasso, @DrawableRes resourceId: Int) =
+        RequestIntoBitmapSingle(picasso, picasso.load(resourceId))
 
-        override fun onError(t: Throwable) {
-            emitter.onError(t)
-        }
-    }
+    /**
+     * [RequestCreator.into] (BitmapTarget)
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeIntoBitmap(picasso: Picasso, requestCreator: RequestCreator) =
+        RequestIntoBitmapSingle(picasso, requestCreator)
 
-    internal class SingleTarget(private val emitter: SingleEmitter<Bitmap>) : BitmapTarget {
-        override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-        }
+    /**
+     * [Picasso.load] (Uri)
+     * [RequestCreator.into] (BitmapTarget)
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeIntoBitmapTarget(picasso: Picasso, uri: Uri) =
+        RequestIntoBitmapTargetObservable(picasso, picasso.load(uri))
 
-        override fun onBitmapFailed(e: Exception, errorDrawable: Drawable?) {
-            emitter.onError(e)
-        }
+    /**
+     * [Picasso.load] (String)
+     * [RequestCreator.into] (BitmapTarget)
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeIntoBitmapTarget(picasso: Picasso, path: String) =
+        RequestIntoBitmapTargetObservable(picasso, picasso.load(path))
 
-        override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
-            emitter.onSuccess(bitmap)
-        }
-    }
+    /**
+     * [Picasso.load] (File)
+     * [RequestCreator.into] (BitmapTarget)
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeIntoBitmapTarget(picasso: Picasso, file: File) =
+        RequestIntoBitmapTargetObservable(picasso, picasso.load(file))
 
-    internal class ObservableTarget(private val emitter: ObservableEmitter<BitmapTargetState>) :
-        BitmapTarget {
-        override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-            emitter.onNext(BitmapTargetState.PrepareLoad(placeHolderDrawable))
-        }
+    /**
+     * [Picasso.load] (Int)
+     * [RequestCreator.into] (BitmapTarget)
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeIntoBitmapTarget(picasso: Picasso, @DrawableRes resourceId: Int) =
+        RequestIntoBitmapTargetObservable(picasso, picasso.load(resourceId))
 
-        override fun onBitmapFailed(e: Exception, errorDrawable: Drawable?) {
-            emitter.onNext(BitmapTargetState.BitmapFailed(e, errorDrawable))
-            emitter.onError(e)
-        }
+    /**
+     * [RequestCreator.into] (BitmapTarget)
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeIntoBitmapTarget(picasso: Picasso, requestCreator: RequestCreator) =
+        RequestIntoBitmapTargetObservable(picasso, requestCreator)
 
-        override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
-            emitter.onNext(BitmapTargetState.BitmapLoaded(bitmap, from))
-            emitter.onComplete()
-        }
-    }
+    /**
+     * [Picasso.load] (Uri)
+     * [RequestCreator.fetch]
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeFetch(picasso: Picasso, uri: Uri) =
+        RequestIntoCompletable(picasso, picasso.load(uri))
+
+    /**
+     * [Picasso.load] (String)
+     * [RequestCreator.fetch]
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeFetch(picasso: Picasso, path: String) =
+        RequestIntoCompletable(picasso, picasso.load(path))
+
+    /**
+     * [Picasso.load] (File)
+     * [RequestCreator.fetch]
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeFetch(picasso: Picasso, file: File) =
+        RequestIntoCompletable(picasso, picasso.load(file))
+
+    /**
+     * [Picasso.load] (Int)
+     * [RequestCreator.fetch]
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeFetch(picasso: Picasso, @DrawableRes resourceId: Int) =
+        RequestIntoCompletable(picasso, picasso.load(resourceId))
+
+    /**
+     * [RequestCreator.fetch]
+     */
+    @CheckReturnValue
+    @JvmStatic
+    fun observeFetch(picasso: Picasso, requestCreator: RequestCreator) =
+        RequestIntoCompletable(picasso, requestCreator)
 }
