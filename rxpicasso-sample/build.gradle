@@ -26,5 +26,6 @@ android {
 
 dependencies {
     implementation project(':rxpicasso')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     implementation 'androidx.appcompat:appcompat:1.0.0'
 }
