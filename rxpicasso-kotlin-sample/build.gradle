@@ -26,7 +26,7 @@ android {
 }
 
 dependencies {
-    implementation project(':rxpicasso-kotlin')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'net.samystudio.rxpicasso:rxpicasso-kotlin:0.3.0'
 }
