@@ -193,7 +193,8 @@ object RxPicasso {
     fun observeInto(
         picasso: Picasso,
         uri: Uri,
-        remoteViews: RemoteViews, @IdRes viewId: Int,
+        remoteViews: RemoteViews,
+        @IdRes viewId: Int,
         appWidgetIds: IntArray
     ) = RequestIntoCompletable(
         picasso,
@@ -212,7 +213,8 @@ object RxPicasso {
     fun observeInto(
         picasso: Picasso,
         path: String,
-        remoteViews: RemoteViews, @IdRes viewId: Int,
+        remoteViews: RemoteViews,
+        @IdRes viewId: Int,
         appWidgetIds: IntArray
     ) = RequestIntoCompletable(
         picasso,
@@ -231,7 +233,8 @@ object RxPicasso {
     fun observeInto(
         picasso: Picasso,
         file: File,
-        remoteViews: RemoteViews, @IdRes viewId: Int,
+        remoteViews: RemoteViews,
+        @IdRes viewId: Int,
         appWidgetIds: IntArray
     ) = RequestIntoCompletable(
         picasso,
@@ -250,7 +253,8 @@ object RxPicasso {
     fun observeInto(
         picasso: Picasso,
         @DrawableRes resourceId: Int,
-        remoteViews: RemoteViews, @IdRes viewId: Int,
+        remoteViews: RemoteViews,
+        @IdRes viewId: Int,
         appWidgetIds: IntArray
     ) = RequestIntoCompletable(
         picasso,
@@ -268,7 +272,8 @@ object RxPicasso {
     fun observeInto(
         picasso: Picasso,
         requestCreator: RequestCreator,
-        remoteViews: RemoteViews, @IdRes viewId: Int,
+        remoteViews: RemoteViews,
+        @IdRes viewId: Int,
         appWidgetIds: IntArray
     ) = RequestIntoCompletable(
         picasso,
